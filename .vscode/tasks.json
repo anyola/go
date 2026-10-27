@@ -1,0 +1,237 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "go test",
+			"type": "shell",
+			"command": "go",
+			"args": [
+				"test",
+				"./..."
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "go test WSL",
+			"type": "shell",
+			"command": "wsl",
+			"args": [
+				"--",
+				"bash",
+				"-lc",
+				"cd /mnt/c/Users/user/Desktop/go && go version && go mod tidy && go test ./... && go build ./cmd/server"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "grader self-test WSL",
+			"type": "shell",
+			"command": "wsl",
+			"args": [
+				"--",
+				"bash",
+				"-lc",
+				"cd /mnt/c/Users/user/Desktop/go && if [ ! -d autotests ]; then echo 'autotests directory is missing'; exit 2; fi; python3 -m pip install -r autotests/requirements.txt && make check -C autotests && make test -C autotests"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "grader self-test WSL retry",
+			"type": "shell",
+			"command": "wsl",
+			"args": [
+				"--",
+				"bash",
+				"-lc",
+				"cd /mnt/c/Users/user/Desktop/go && if [ ! -d autotests ]; then echo autotests_directory_is_missing; exit 2; fi; python3 -m pip install -r autotests/requirements.txt && make check -C autotests && make test -C autotests"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "run course tests WSL",
+			"type": "shell",
+			"command": "wsl",
+			"args": [
+				"--",
+				"bash",
+				"-lc",
+				"cd /mnt/c/Users/user/Desktop/go; go test ./...; echo COURSE_TEST_EXIT=$?; go test ./autotests/task3; echo TASK3_TEST_EXIT=$?"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "inspect WSL distributions",
+			"type": "shell",
+			"command": "wsl",
+			"args": [
+				"--list",
+				"--verbose"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "run course tests Ubuntu 2204",
+			"type": "shell",
+			"command": "wsl",
+			"args": [
+				"-d",
+				"Ubuntu-22.04",
+				"--",
+				"bash",
+				"-lc",
+				"cd /mnt/c/Users/user/Desktop/go && go version && go test ./..."
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "locate Go in WSL",
+			"type": "shell",
+			"command": "wsl",
+			"args": [
+				"--",
+				"bash",
+				"-lc",
+				"echo PATH=$PATH; command -v go || true; ls -l /usr/local/go/bin/go /usr/bin/go 2>/dev/null || true"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "run course tests with Go",
+			"type": "shell",
+			"command": "wsl",
+			"args": [
+				"--",
+				"bash",
+				"-lc",
+				"export PATH=/usr/local/go/bin:$PATH; cd /mnt/c/Users/user/Desktop/go; go version; go test ./..."
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "verify project excluding grader",
+			"type": "shell",
+			"command": "wsl",
+			"args": [
+				"--",
+				"bash",
+				"-lc",
+				"export PATH=/usr/local/go/bin; cd /mnt/c/Users/user/Desktop/go; go test ./api ./cmd/server ./internal/... && go build ./cmd/server"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "download course autotests",
+			"type": "shell",
+			"command": "wsl",
+			"args": [
+				"--",
+				"bash",
+				"-lc",
+				"set -e; export PATH=/usr/local/go/bin:$PATH; tmp=$(mktemp -d); git clone --depth 1 --filter=blob:none --sparse https://github.com/vacmannnn/go-courses.git \"$tmp/go-courses\"; cd \"$tmp/go-courses\"; git sparse-checkout set autotests; cp -a autotests/. /mnt/c/Users/user/Desktop/go/autotests/; rm -rf \"$tmp\"; find /mnt/c/Users/user/Desktop/go/autotests -maxdepth 3 -type f | sort"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "download course autotests retry",
+			"type": "shell",
+			"command": "wsl",
+			"args": [
+				"--",
+				"bash",
+				"-lc",
+				"set -e; tmp=$(mktemp -d); git clone --depth 1 --filter=blob:none --sparse https://github.com/vacmannnn/go-courses.git \"$tmp/go-courses\"; cd \"$tmp/go-courses\"; git sparse-checkout set autotests; cp -a autotests/. /mnt/c/Users/user/Desktop/go/autotests/; rm -rf \"$tmp\"; find /mnt/c/Users/user/Desktop/go/autotests -maxdepth 3 -type f | sort"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "download course autotests fixed",
+			"type": "shell",
+			"command": "wsl",
+			"args": [
+				"--",
+				"bash",
+				"-lc",
+				"set -e; rm -rf /tmp/course-tests; git clone --depth 1 --filter=blob:none --sparse https://github.com/vacmannnn/go-courses.git /tmp/course-tests; cd /tmp/course-tests; git sparse-checkout set autotests; cp -a /tmp/course-tests/autotests/. /mnt/c/Users/user/Desktop/go/autotests/; rm -rf /tmp/course-tests; find /mnt/c/Users/user/Desktop/go/autotests -maxdepth 3 -type f | sort"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "run downloaded autotests",
+			"type": "shell",
+			"command": "wsl",
+			"args": [
+				"--",
+				"bash",
+				"-lc",
+				"export PATH=/usr/local/go/bin; cd /mnt/c/Users/user/Desktop/go/autotests; go mod tidy; make check; make test"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "run task3 grader",
+			"type": "shell",
+			"command": "wsl",
+			"args": [
+				"--",
+				"bash",
+				"-lc",
+				"cd /mnt/c/Users/user/Desktop/go; export PATH=/usr/local/go/bin; python3 autotests/scripts/ci.py --repo /mnt/c/Users/user/Desktop/go --task 3 --module . --package ./cmd/server --report /tmp/course-report.json"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "compile task3 tests",
+			"type": "shell",
+			"command": "wsl",
+			"args": [
+				"--",
+				"bash",
+				"-lc",
+				"export PATH=/usr/local/go/bin; cd /mnt/c/Users/user/Desktop/go/autotests; go test ./task3"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "run grader after repair",
+			"type": "shell",
+			"command": "wsl",
+			"args": [
+				"--",
+				"bash",
+				"-lc",
+				"set -e; PATH=/usr/local/go/bin:/usr/bin:/bin; export PATH; cd /mnt/c/Users/user/Desktop/go; python3 -m pip install --user -r autotests/requirements.txt; cd autotests; make check; make test"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "grade current task3 solution",
+			"type": "shell",
+			"command": "wsl",
+			"args": [
+				"--",
+				"bash",
+				"-lc",
+				"set -e; PATH=/usr/local/go/bin:/usr/bin:/bin; export PATH; cd /mnt/c/Users/user/Desktop/go; python3 autotests/scripts/ci.py --repo . --task 3 --module . --package ./cmd/server --report /tmp/course-report.json"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		}
+	]
+}
